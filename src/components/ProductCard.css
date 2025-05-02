@@ -1,0 +1,252 @@
+.product-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    width: 100%;
+    max-width: 350px;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    border-color: var(--peach-cream);
+}
+
+.product-image-container {
+    position: relative;
+    width: 100%;
+    padding-top: 125%; /* 4:5 aspect ratio */
+    overflow: hidden;
+}
+
+.product-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+.product-card {
+    /* start hidden & downshifted */
+    opacity: 0;
+    transform: translateY(20px);
+  
+    /* animate when .in-view is added */
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  
+  /* once in viewport */
+  .product-card.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+.product-card:hover .product-image {
+    transform: scale(1.05);
+
+}
+
+.product-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.product-overlay.visible {
+    opacity: 1;
+}
+
+.quick-view-btn {
+    background: rgba(0, 0, 0, 0.5);
+    color: var(--peach-cream);
+    border: 1px solid var(--divider);
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-family: "Gornis";
+    font-size: 1rem;
+    cursor: pointer;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    opacity: 0;
+}
+
+.product-overlay.visible .quick-view-btn {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.quick-view-btn:hover {
+    background: var(--peach-cream);
+    color: var(--deep-aqua);
+}
+
+.product-info {
+    padding: 1.5rem;
+}
+
+.product-name {
+    font-family: "Gornis";
+    font-size: 1.2rem;
+    color: var(--peach-cream);
+    margin: 0 0 0.5rem 0;
+    letter-spacing: 0.5px;
+}
+
+.product-description {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 1rem;
+    line-height: 1.4;
+    font-family: "Gornis";
+}
+
+.product-price-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.product-price {
+    font-family: "Gornis";
+    font-size: 1.3rem;
+    color: var(--peach-cream);
+    font-weight: 500;
+}
+
+.original-price {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: line-through;
+    font-family: "Gornis";
+}
+
+.product-colors {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.color-dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.2s ease;
+    cursor: pointer;
+}
+
+.color-dot:hover {
+    transform: scale(1.2);
+    border-color: var(--peach-cream);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .product-card {
+        max-width: 320px;
+    }
+
+    .product-info {
+        padding: 1.3rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .product-card {
+        max-width: 300px;
+    }
+
+    .product-name {
+        font-size: 1.1rem;
+    }
+
+    .product-price {
+        font-size: 1.2rem;
+    }
+
+    .quick-view-btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .product-card {
+        max-width: 280px;
+    }
+
+    .product-info {
+        padding: 1.2rem;
+    }
+
+    .product-name {
+        font-size: 1rem;
+    }
+
+    .product-description {
+        font-size: 0.85rem;
+    }
+
+    .product-price {
+        font-size: 1.1rem;
+    }
+
+    .original-price {
+        font-size: 0.9rem;
+    }
+
+    .color-dot {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+@media (max-width: 576px) {
+    .product-card {
+        max-width: 100%;
+    }
+
+    .product-info {
+        padding: 1rem;
+    }
+
+    .product-name {
+        font-size: 0.95rem;
+    }
+
+    .product-description {
+        font-size: 0.8rem;
+    }
+
+    .product-price {
+        font-size: 1rem;
+    }
+
+    .original-price {
+        font-size: 0.85rem;
+    }
+
+    .color-dot {
+        width: 16px;
+        height: 16px;
+    }
+
+    .quick-view-btn {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+    }
+} 

@@ -1,0 +1,349 @@
+/* 1) Load your custom font first */
+@font-face {
+  font-family: "Gorni";
+  src: url("../assets/Demo_Fonts/DEMO-gornisc.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 2) CSS variables */
+:root {
+  --peach-cream: #ffebd0;
+  --deep-aqua:   #278783;
+  --white:       #fff;
+  --shadow-sm:   0 2px 4px rgba(0,0,0,0.1);
+  --shadow-md:   0 8px 32px rgba(0,0,0,0.18);
+  --transition:  all 0.2s cubic-bezier(.4,0,.2,1);
+  --text-dark:   #1a1a1a;
+  --text-muted:  #555;
+  --radius:      14px;
+  --dropdown-bg: #fffdfa;
+  --divider:     #f3e7d6;
+}
+
+/* 3) Base reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* 4) Navbar container */
+.navbar {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 70px;
+  padding: 0 2.5rem;
+  background: var(--peach-cream);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: "Gorni", sans-serif;
+  z-index: 100;
+}
+
+/* 5) Logo */
+#logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  transition: var(--transition);
+}
+#logo:hover {
+  transform: scale(1.05);
+}
+
+/* 6) Center nav links */
+.nav-items {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  gap: 3rem;
+}
+
+/* each category + its dropdown */
+.nav-item {
+  position: relative;
+}
+.nav-link {
+  background: none;
+  border: none;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--deep-aqua);
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: "Gorni";
+  padding: 0.5rem 1.2rem 0.5rem 1.2rem;
+  transition: var(--transition);
+  font-weight: 600;
+  position: relative;
+  letter-spacing: 0.5px;
+  border-radius: 8px 8px 0 0;
+}
+.nav-item:hover .nav-link {
+  background: var(--dropdown-bg);
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2.5px;
+  background: var(--deep-aqua);
+  transform: scaleX(0);
+  transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+  border-radius: 2px;
+}
+
+.nav-item:hover .nav-link::after {
+  transform: scaleX(1);
+}
+
+/* 7) Mega-dropdown panel */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(16px);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+  padding: 3rem 4rem; 
+  background: var(--dropdown-bg);
+  border: 1.5px solid var(--divider);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: var(--transition), opacity 0.18s ease-in-out;
+  z-index: 1000;
+  min-width: 60vw;               /* almost full viewport width */
+  max-width: 1200px; 
+}
+.nav-item:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0) scale(1);
+}
+/* 8) Sections within dropdown */
+.dropdown-section {
+  display: flex;
+  flex-direction: column;
+}
+.dropdown-section:not(:last-child) {
+  border-right: 1.5px solid var(--divider);
+  padding-right: 2rem;
+}
+
+.dropdown-category {
+  font-size: 1.13rem;
+  font-weight: 700;
+  color: var(--deep-aqua);
+  margin-bottom: 1rem;
+  letter-spacing: 0.2px;
+  border-bottom: 2px solid var(--peach-cream);
+  padding-bottom: 0.5rem;
+}
+
+.dropdown-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.dropdown-item {
+  font-size: 1rem;
+  color: var(--text-dark);
+  text-decoration: none;
+  padding: 0.3rem 0.2rem;
+  border-radius: 6px;
+  transition: var(--transition);
+}
+.dropdown-item:hover {
+  color: var(--deep-aqua);
+  background: var(--peach-cream);
+  transform: translateX(4px) scale(1.04);
+}
+
+/* 9) Cart icon (SVG) on the right */
+.nav-icon.cart-icon {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.nav-icon.cart-icon:hover {
+  transform: scale(1.1);
+}
+
+/* 10) Responsive tweaks */
+@media (max-width: 1100px) {
+  .dropdown-menu {
+    grid-template-columns: repeat(2, 1fr);
+    min-width: 90vw;
+    padding: 1.2rem;
+    gap: 1.2rem;
+  }
+  .dropdown-section:not(:last-child) {
+    padding-right: 1rem;
+  }
+}
+@media (max-width: 800px) {
+  .dropdown-menu {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+  .dropdown-section {
+    border-right: none;
+    border-bottom: 1px solid var(--divider);
+    padding-right: 0;
+    margin-bottom: 1rem;
+  }
+}
+/* desktop-only / mobile-only helpers */
+.desktop-only { display: flex; align-items: center; }
+.mobile-only  { display: none; }
+
+/* hamburger button */
+.mobile-menu-button {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+.hamburger {
+  width: 24px;
+  height: 2px;
+  background: var(--deep-aqua);
+  position: relative;
+}
+.hamburger::before,
+.hamburger::after {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 2px;
+  background: var(--deep-aqua);
+  left: 0;
+}
+.hamburger::before { top: -6px; }
+.hamburger::after  { top: 6px; }
+
+/* mobile overlay */
+.mobile-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 900;
+}
+
+/* side drawer */
+.mobile-drawer {
+  position: fixed;
+  top: 0; bottom: 0; left: 0;
+  width: 80%;
+  max-width: 300px;
+  background: var(--dropdown-bg);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+.mobile-drawer.open {
+  transform: translateX(0);
+}
+
+/* drawer header */
+.drawer-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem;
+}
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* mobile menu list */
+.mobile-menu-list {
+  list-style: none;
+  padding: 0 1rem;
+  margin: 0;
+  flex: 1;
+  overflow-y: auto;
+}
+.mobile-menu-item {
+  width: 100%;
+  background: none;
+  border: none;
+  font-family: "Gorni";
+  font-size: 1.1rem;
+  color: var(--text-dark);
+  text-align: left;
+  padding: 1rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+.arrow {
+  transition: transform 0.2s ease;
+  border: solid var(--text-dark);
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 4px;
+  transform: rotate(45deg);
+}
+.arrow.expanded {
+  transform: rotate(-135deg);
+}
+
+/* subcategory group */
+.mobile-subcats {
+  padding-left: 1rem;
+  border-top: 1px solid var(--divider);
+}
+.subcat-group {
+  margin-top: 0.75rem;
+}
+.subcat-title {
+  font-weight: 600;
+  color: var(--deep-aqua);
+  margin-bottom: 0.5rem;
+}
+.subcat-group ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.subcat-group li + li {
+  margin-top: 0.25rem;
+}
+.subcat-group a {
+  color: var(--text-dark);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+/* responsive breakpoints */
+@media (max-width: 1024px) {
+  .desktop-only { display: none; }
+  .mobile-only  { display: block; }
+}
